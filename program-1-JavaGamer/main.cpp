@@ -5,9 +5,9 @@ using namespace std;
 
 // NAME: main.cpp
 // OVERVIEW:
-//      TODO
+//      A program that converts ASCII text to a binary sequence and vice versa.
 // USAGE:
-//      TODO
+//      Run it and follow the instruction given.
 
 
 // SUMMARY:
@@ -15,35 +15,36 @@ using namespace std;
 // INPUT:
 //      StringInput: a STRING of ASCII character that is terminated with a period.
 // OUTPUT:
-//      STRING: an ASCII STRING of a binary sequence for each CHAR decimal value of the |INPUT|.
+//      STRING: an ASCII STRING of a binary sequence for each CHAR decimal value of the |StringInput|.
 // REMARKS:
 //      Each binary form of each character is seperated with whitespace.
 string encodeStringBinary(const string& StringInput);
 
 // SUMMARY:
-//      TODO
+//      Encodes a single character into the binary sequence of the decimal value it represents.
 // INPUT:
-//      TODO
+//      UnconvertedChar: An int that represents a single character to be encoded.
 // OUTPUT:
-//      TODO
+//      STRING: a binary sequence of the |UnconvertedChar| character
 string encodeCharBinary(const int& UnconvertedChar);
 
 // SUMMARY:
-//      TODO
+//      Transform a binary sequence into an ASCII STRING
 // INPUT:
-//      BinaryInput: TODO
+//      BinaryInput: a STRING of a binary sequence with each encoded character separated with whitespace.
 // OUTPUT:
-//      STRING: TODO
+//      STRING: an ASCII STRING based on each encoded character ASCII decimal value.
 // REMARKS:
-//      TODO
+//      This function will assume that the sentence will end in a period.
+//      The input string should ideally be trimmed beforehand.
 string decodeStringBinary(const string& BinaryInput);
 
 // SUMMARY:
-//      TODO
+//      Transform a STRING that is representing a single ASCII CHAR into a CHAR
 // INPUT:
-//      TODO
+//      EncodedString: a STRING containing 7 characters of '1' and '0'
 // OUTPUT:
-//      TODO
+//      CHAR: an ASCII character
 char decodeCharBinary(const string& EncodedString);
 
 int main()
@@ -109,14 +110,15 @@ int main()
 }
 
 // DESCRIPTION:
-//      TODO
+//      Loops through the string character by character calling [encodeCharBinary] to transform it to the proper
+//      representation.
 string encodeStringBinary(const string& StringInput)
 {
     string ReturnValue;
 
     for (const char currentChar : StringInput) {
         ReturnValue += encodeCharBinary(currentChar);
-        // Need to separate every "byte" with a whitespace
+        // Need to separate every encoded character with a whitespace
         ReturnValue += " ";
     }
 
@@ -124,32 +126,33 @@ string encodeStringBinary(const string& StringInput)
 }
 
 // DESCRIPTION:
-//      TODO
+//      Loops through the prepopulated string backwards turning a character into a one if it's not divisible
+//      by two in that base
 string encodeCharBinary(const int& UnconvertedChar)
 {
     int charValue = static_cast<int>(UnconvertedChar);
 
     // Pre-populate the string because it probably more efficient?
     string encodedChar = "0000000";
-    while (charValue > 0) {
-        // Loop backwards through the string
-        for (int i = encodedChar.size() - 1; i >= 0; --i) {
 
-            // Check if the value is not even as that means TODO
-            if (charValue % 2 != 0) {
-                encodedChar[i] = '1';
-            }
+    // Loop backwards through the string to get to the smallest value first
+    for (int i = encodedChar.size() - 1; i >= 0; --i) {
 
-            // In either cases reduce the charValue
-            charValue /= 2;
+        // Check if the value is not even as that means it's the smallest value that still fits
+        if (charValue % 2 != 0) {
+            encodedChar[i] = '1';
         }
+
+        // In either cases reduce the charValue by half
+        charValue /= 2;
     }
 
     return encodedChar;
 }
 #pragma clang diagnostic pop
 // DESCRIPTION:
-//      TODO
+//      Loop through the whole string and then calling [decodeCharBinary] to transform it to the proper
+//      representation.
 string decodeStringBinary(const string& BinaryInput)
 {
     string ReturnValue;
@@ -168,11 +171,13 @@ string decodeStringBinary(const string& BinaryInput)
 }
 
 // DESCRIPTION:
-//      TODO
+//      Loop through the |EncodedString| in chunks of 7 character adding by the current base if the character is one
 char decodeCharBinary(const string& EncodedString)
 {
     int base = 64;
     int charValue = 0;
+
+
     for (const char currentChar : EncodedString) {
         switch (currentChar) {
             case '1':
