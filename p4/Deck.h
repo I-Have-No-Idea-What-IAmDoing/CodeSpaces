@@ -12,7 +12,7 @@ public:
     Card dealCard();
     void addCard(Card);
     void shuffle();
-
+    void regenerate();
 private:
     std::vector<Card> cards;
 };

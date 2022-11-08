@@ -18,6 +18,7 @@ public:
     int getScore() const;
     string getRankString() const;
     string getSuitString() const;
+    void Print() const;
 
 private:
     int rank;

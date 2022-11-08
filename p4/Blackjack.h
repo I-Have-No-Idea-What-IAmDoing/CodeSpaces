@@ -10,11 +10,20 @@ public:
     Blackjack();
 
     void play();
-
+    void printPlayerHand();
+    void printDealerHand();
+    void revealDealerCard();
+    void dealTheDealer();
+    void dealCards();
+    void dealThePlayer();
 private:
     Deck deck;
     Hand dealer;
     Hand player;
+
+    // these are private since they are really only internal stuff
+    int presentChoice();
+    int checkScore();
 };
 
 

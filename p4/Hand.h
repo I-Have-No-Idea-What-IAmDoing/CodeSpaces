@@ -10,7 +10,9 @@ public:
 
     int getScore();
     void addCard(Card c);
-
+    Card GetCard(int);
+    void Print();
+    void clearHand();
 private:
     std::vector<Card> cards;
 };

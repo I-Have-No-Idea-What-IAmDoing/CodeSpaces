@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Card.h"
 
 Card::Card(): rank{-1}, suit{-1} {}
@@ -91,4 +92,9 @@ int Card::getScore() const {
         default:
             return 0;
     }
+}
+
+// Print the card in a nice formatted way
+void Card::Print() const{
+    std::cout << "* " << getRankString() << " of " << getSuitString() << std::endl;
 }
