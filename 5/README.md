@@ -1,0 +1,2 @@
+# Program 5 - DLT
+Program 5 specifications can be found here: [https://github.com/CS1342-F22/lecture-materials/blob/main/misc/program05/Program05.md](https://github.com/CS1342-F22/lecture-materials/blob/main/misc/program05/Program05.md)
