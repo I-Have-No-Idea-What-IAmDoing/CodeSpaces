@@ -10,11 +10,29 @@
 #include "Transaction.h"
 
 class Peer {
+public:
 
+    Peer();
+
+    Peer(Peer &other);
+
+    Peer(int newID, std::string newName);
+
+    ~Peer();
+
+    Peer& operator=(const Peer&);
+
+    int getId() const;
+
+    std::string getName() const;
+
+    void setName(std::string *name);
+
+    void addTransaction(Transaction* newTransaction);
 private:
     int *id;
     std::string *name;
-    std::vector<Transaction *> transactions;
+    std::vector<Transaction*> transactions;
 };
 
 
