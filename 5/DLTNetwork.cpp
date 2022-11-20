@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 #include "DLTNetwork.h"
 
 using namespace std;
@@ -127,7 +128,7 @@ void DLTNetwork::start() {
                 }
                 break;
             case DISPLAY_ALL:
-                cout << "DISPLAYING ALL:" << endl;
+                cout << "|DISPLAYING ALL:" << endl;
                 DisplayAll(commandArguments);
                 break;
             case CREATE_TRANSACTION:
@@ -137,13 +138,19 @@ void DLTNetwork::start() {
                 CreateTransaction(commandArguments);
                 break;
             case DISPLAY_PEER:
-                cout << "DISPLAYING PEER: " << currentCommand << endl;
+                cout << "|DISPLAYING PEER " << "["<< commandArguments.at(0) << "] "
+                     << peers.at(stoi(commandArguments.at(0)) - 1)->getName() << ":" << endl;
+                DisplayPeer(commandArguments);
                 break;
             case DISPLAY_PEER_TOTAL:
-                cout << "DISPLAYING PEER TOTAL: " << currentCommand << endl;
+                cout << "|DISPLAYING PEER TOTAL " << "["<< commandArguments.at(0) << "] "
+                     << peers.at(stoi(commandArguments.at(0)) - 1)->getName() << ":" << endl;
+                DisplayPeerTotal(commandArguments);
                 break;
             case DISPLAY_USER:
-                cout << "DISPLAYING USER:: " << currentCommand << endl;
+                cout << "|DISPLAYING USER "  << "["<< commandArguments.at(0) << "] "
+                                             << users.at(stoi(commandArguments.at(0)) - 1)->getName() << ":" << endl;
+                DisplayUser(commandArguments);
                 break;
             default:
                  cout << "INVALID COMMAND: " << currentCommand << endl;
@@ -209,4 +216,59 @@ void DLTNetwork::DisplayAll(const std::vector<string>& commandArguments) {
     for (auto curUser : users) {
         cout << "|--] " << curUser->toString() << endl;
     }
+}
+
+void DLTNetwork::DisplayPeer(std::vector<string> commandArgs) {
+    cout << "| Transactions: " << endl;
+    auto currentPeer = peers.at(stoi(commandArgs.at(0)) - 1);
+    int transactionSIZE = currentPeer->getNumberOfTransaction();
+    if (transactionSIZE <= 0)  cout << "|--] There are no transactions on this Peer." << endl;
+    for (int i = 0; i < transactionSIZE; ++i) {
+        Transaction* currentTransaction = currentPeer->getTransaction(i);
+        if (currentTransaction != nullptr)
+            cout << "|----] $" << currentTransaction->getAmount() << " from "
+            << users.at(currentTransaction->getUserFromId() - 1)->getName() << "["<< currentTransaction->getUserFromId() <<"] "
+            << "to " << users.at(currentTransaction->getUserToId() - 1)->getName() << "["<< currentTransaction->getUserToId() <<"] " << endl;
+    }
+}
+
+void DLTNetwork::DisplayPeerTotal(std::vector<string> commandArgs) {
+    double totalValue = 0;
+    auto currentPeer = peers.at(stoi(commandArgs.at(0)) - 1);
+    int transactionSIZE = currentPeer->getNumberOfTransaction();
+    streamsize ss = cout.precision();
+    for (int i = 0; i < transactionSIZE; ++i) {
+        Transaction *currentTransaction = currentPeer->getTransaction(i);
+        if (currentTransaction != nullptr) totalValue += currentTransaction->getAmount();
+    }
+
+    cout << "| Total: $" << setprecision(2) << fixed << totalValue << endl;
+    cout << setprecision(ss) << defaultfloat;
+}
+
+void DLTNetwork::DisplayUser(std::vector<string> commandArgs) {
+    cout << "| Transactions: " << endl;
+    bool noTransaction = true;
+    int currentUser = stoi(commandArgs.at(0));
+    for (auto currentPeer: peers) {
+        cout << "|--] " << currentPeer->getName() << "[" << currentPeer->getId() << "]:" << endl;
+        int transactionSIZE = currentPeer->getNumberOfTransaction();
+        if (transactionSIZE <= 0)  cout << "|--] There are no transactions on this Peer.";
+        for (int i = 0; i < transactionSIZE; ++i) {
+            Transaction* currentTransaction = currentPeer->getTransaction(i);
+            if (currentTransaction != nullptr) {
+                if (currentTransaction->getUserFromId() == currentUser or
+                    currentTransaction->getUserToId() == currentUser) {
+                        cout << "|----] $" << currentTransaction->getAmount() << " from "
+                             << users.at(currentTransaction->getUserFromId() - 1)->getName() << "["
+                             << currentTransaction->getUserFromId() << "] "
+                             << "to " << users.at(currentTransaction->getUserToId() - 1)->getName() << "["
+                             << currentTransaction->getUserToId() << "] " << endl;
+                    noTransaction = false;
+                }
+            }
+        }
+    }
+
+    if (noTransaction)  cout << "|--] There are no transactions on this User." << endl;
 }

@@ -29,10 +29,15 @@ public:
     void setName(std::string *name);
 
     void addTransaction(Transaction* newTransaction);
+
+    int getNumberOfTransaction();
+
+    Transaction * getTransaction(int index);
 private:
     int *id;
     std::string *name;
     std::vector<Transaction*> transactions;
+
 };
 
 

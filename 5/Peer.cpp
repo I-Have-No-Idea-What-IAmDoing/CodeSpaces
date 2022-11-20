@@ -89,3 +89,12 @@ void Peer::setName(string *newName) {
 void Peer::addTransaction(Transaction* newTransaction){
     transactions.push_back(newTransaction);
 }
+
+int Peer::getNumberOfTransaction(){
+    return transactions.size();
+}
+
+Transaction* Peer::getTransaction(int index){
+    if (index <= transactions.size() and index < 0) return nullptr;
+    return transactions.at(index);
+}

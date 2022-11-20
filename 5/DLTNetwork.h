@@ -24,6 +24,9 @@ public:
     void CreateUser(std::vector<std::string> commandArguments);
     void DisplayAll(const std::vector<std::string>& commandArguments);
     void CreateTransaction(std::vector<std::string> commandArguments);
+    void DisplayPeer(std::vector<std::string> commandArgs);
+    void DisplayPeerTotal(std::vector<std::string> commandArgs);
+    void DisplayUser(std::vector<std::string> commandArgs);
 private:
     std::vector<User *> users;
     std::vector<Peer *> peers;

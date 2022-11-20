@@ -16,11 +16,17 @@ public:
 
     virtual ~Transaction();
 
+    double getAmount() const;
+
+    int getUserFromId() const;
+
+    int getUserToId() const;
+
     Transaction& operator=(const Transaction&);
 private:
-    double *amount;
-    int *userFromId;
-    int *userToId;
+    double *amount{};
+    int *userFromId{};
+    int *userToId{};
 
 };
 
