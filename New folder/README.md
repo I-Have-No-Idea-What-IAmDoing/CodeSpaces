@@ -1,0 +1,2 @@
+# Program 6 - Peruna Pop
+Find Program 6 details here: [https://github.com/CS1342-F22/lecture-materials/blob/main/misc/program06/program6.pdf](https://github.com/CS1342-F22/lecture-materials/blob/main/misc/program06/program6.pdf)
