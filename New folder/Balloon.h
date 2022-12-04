@@ -7,7 +7,16 @@
 
 
 class Balloon {
+public:
+    Balloon();
 
+    bool isPopped();
+
+    virtual int pop() = 0;
+
+protected:
+    int balloonAmount;
+    bool popped;
 };
 
 

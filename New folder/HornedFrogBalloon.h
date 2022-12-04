@@ -6,8 +6,13 @@
 #define STACK_HORNEDFROGBALLOON_H
 
 
-class HornedFrogBalloon {
+#include "Balloon.h"
 
+class HornedFrogBalloon : public Balloon{
+public:
+    HornedFrogBalloon();
+
+    int pop() override;
 };
 
 

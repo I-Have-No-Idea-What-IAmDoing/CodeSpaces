@@ -3,3 +3,13 @@
 //
 
 #include "PerunaBalloon.h"
+
+PerunaBalloon::PerunaBalloon() {
+    balloonAmount = 10;
+    popped = false;
+}
+
+int PerunaBalloon::pop() {
+    popped = true;
+    return balloonAmount;
+}

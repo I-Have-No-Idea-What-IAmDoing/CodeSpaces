@@ -6,8 +6,13 @@
 #define STACK_PERUNABALLOON_H
 
 
-class PerunaBalloon {
+#include "Balloon.h"
 
+class PerunaBalloon : public Balloon{
+public:
+    PerunaBalloon();
+
+    int pop() override;
 };
 
 
