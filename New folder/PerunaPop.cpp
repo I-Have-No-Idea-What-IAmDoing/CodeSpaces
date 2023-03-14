@@ -85,7 +85,7 @@ void PerunaPop::Print(){
         // * if it's popped
         // Put the shifted index if it's not
         if (curBalloon->isPopped()){
-            cout << "* ";
+            cout << "[*] ";
         }else{
             cout << "["<< (index + 1) << "] ";
         }
